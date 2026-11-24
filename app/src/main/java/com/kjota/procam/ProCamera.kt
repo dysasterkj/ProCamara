@@ -367,7 +367,7 @@ class ProCamera(private val ctx: Context) {
     }
 
     // ---- Acciones de la interfaz ----
-    fun setMode(m: Mode) {
+    fun changeMode(m: Mode) {
         if (m == mode) return
         mode = m
         pendingEv = if (m == Mode.PAISAJE) -0.7f else 0f
@@ -401,7 +401,7 @@ class ProCamera(private val ctx: Context) {
         timer = when (timer) { 0 -> 3; 3 -> 10; else -> 0 }
     }
 
-    fun setZoom(z: Float) {
+    fun zoomTo(z: Float) {
         val c = z.coerceIn(minZoom, maxZoom)
         zoom = c
         camera?.cameraControl?.setZoomRatio(c)
@@ -446,7 +446,7 @@ class ProCamera(private val ctx: Context) {
         applyOptions()
     }
 
-    fun setWb(w: WB) {
+    fun changeWb(w: WB) {
         wb = w
         applyOptions()
     }

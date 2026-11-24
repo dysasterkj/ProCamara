@@ -211,7 +211,7 @@ fun Viewfinder(cam: ProCamera, modifier: Modifier) {
                 }
                 .pointerInput(Unit) {
                     detectTransformGestures { _, _, z, _ ->
-                        if (z != 1f) cam.setZoom(cam.zoom * z)
+                        if (z != 1f) cam.zoomTo(cam.zoom * z)
                     }
                 }
         )
@@ -266,7 +266,7 @@ fun Viewfinder(cam: ProCamera, modifier: Modifier) {
                     color = if (sel) Color.Black else Color.White,
                     modifier = Modifier.clip(CircleShape)
                         .background(if (sel) Amber else Color.Transparent)
-                        .clickable { cam.setZoom(z) }
+                        .clickable { cam.zoomTo(z) }
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 )
             }
@@ -344,7 +344,7 @@ fun ProPanel(cam: ProCamera) {
                 }
             }
             "BAL" -> Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                WB.values().forEach { w -> Pill(w.label, active = cam.wb == w) { cam.setWb(w) } }
+                WB.values().forEach { w -> Pill(w.label, active = cam.wb == w) { cam.changeWb(w) } }
             }
             else -> FocusRow(cam)
         }
@@ -390,7 +390,7 @@ fun ModeSelector(cam: ProCamera) {
             Text(
                 m.label, fontSize = 14.sp, fontWeight = FontWeight.Bold,
                 color = if (cam.mode == m) Amber else Color(0xFFBBBBBB),
-                modifier = Modifier.clickable { cam.setMode(m) }.padding(horizontal = 8.dp, vertical = 6.dp)
+                modifier = Modifier.clickable { cam.changeMode(m) }.padding(horizontal = 8.dp, vertical = 6.dp)
             )
         }
     }
